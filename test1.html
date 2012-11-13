@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/c/video.js"></script>
+
+</head>
+<body>
+    <video id="ahsVideo" class="video-js vjs-default-skin"  
+      preload="auto" width="1280" height="720"
+      data-setup='{"autoplay":true}'>
+     //Starting Sequence State=0  
+     <source src="dream.mp4" type='video/mp4' />  
+    </video>
+</body>
+
+<script type="text/javascript">
+
+videoList=
+		{
+			scene1:{title:"Dream Sequence",src:"dream.mp4"},
+			scene2:{title:"Wake Up, Fiddle with Flashlight",src:"ahs.mp4"},
+			scene3:{title:"Hallway",unityMessage:"Flashlight"},
+			scene4:{title:"Walk to Door",src:"dream.mp4"},
+			scene5:{title:"KeyHole Sequence",unityMessage:"Keyhole"},
+			scene6:{title:"Door open, Ben Hanging",src:"ben.mp4"},
+			scene7:{title:"Grab Rope",src:"rope.mp4",unityMessage:"Rope"},
+			scene8:{title:"Hold Tight",src:"rope1.mp4"},
+			scene9:{title:"Hold Less Tight",src:"rope2.mp4"},
+			scene10:{title:"Hold Loose ",src:"rope3.mp4"},
+			scene11:{title:"Ben Death ",src:"benDie.mp4"},
+			scene12:{title:"Happy Ghost Family ",src:"happy.mp4"}
+			
+		};
+
+_V_("ahsVideo").ready(function(){
+      var myPlayer = this;
+      var state=0;
+      // EXAMPLE: Start playing the video.
+      myPlayer.play();
+      
+      myPlayer.addEvent("timeupdate", myFunc);
+      function myFunc(){
+      	if (state==0){
+      	//Switch to second video when seek time is 5 seconds. Just to play around.
+	      if(myPlayer.currentTime() >5)
+	      {
+	      //Changes player source to change video.
+	      myPlayer.src("ahs.mp4");
+	      state=1;
+	      myPlayer.play();
+	      	
+	      }
+	    }
+	  }
+
+});
+</script>
+</html>
