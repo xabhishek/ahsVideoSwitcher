@@ -3,22 +3,50 @@
 <head>
     <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
     <script src="http://vjs.zencdn.net/c/video.js"></script>
+	<script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	<script type="text/javascript">
+	<!--
+	function GetUnity() {
+		if (typeof unityObject != "undefined") {
+			return unityObject.getObjectById("unityPlayer");
+		}
+		return null;
+	}
+	if (typeof unityObject != "undefined") {
+		unityObject.embedUnity("unityPlayer", "WebPlayer.unity3d", 1024, 768);
+		
+	}
+	-->
+	</script>
+	
+	<style>
+	#unityPlayer{position:absolute; top:0; z-index: 300;}
+	</style>
 
 </head>
 <body>
     <video id="ahsVideo" class="video-js vjs-default-skin"  
       preload="auto" width="1280" height="720"
       data-setup='{"autoplay":true}'>
-     //Starting Sequence State=0  
      <source src="dream.mp4" type='video/mp4' />  
     </video>
+    
+	<div id="unityPlayer">
+	<!--<div class="missing">
+		<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+			<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+		</a>
+	</div>-->
+	</div>
+
 </body>
 
 <script type="text/javascript">
 
 videoList=
 		{
-			scene1:{title:"Dream Sequence",src:"dream.mp4"},
+			scenew1:{title:"Dream Sequence",src:"dream.mp4"},
 			scene2:{title:"Wake Up, Fiddle with Flashlight",src:"ahs.mp4"},
 			scene3:{title:"Hallway",unityMessage:"Flashlight"},
 			scene4:{title:"Walk to Door",src:"dream.mp4"},
@@ -39,6 +67,7 @@ _V_("ahsVideo").ready(function(){
       // EXAMPLE: Start playing the video.
       myPlayer.play();
       
+      
       myPlayer.addEvent("timeupdate", myFunc);
       function myFunc(){
       	if (state==0){
@@ -46,6 +75,7 @@ _V_("ahsVideo").ready(function(){
 	      if(myPlayer.currentTime() >5)
 	      {
 	      //Changes player source to change video.
+	      $("#unityPlayer").hide();
 	      myPlayer.src("ahs.mp4");
 	      state=1;
 	      myPlayer.play();

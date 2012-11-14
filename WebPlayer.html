@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Unity Web Player | WebPlayer</title>
+
+
+		<script src="http://vjs.zencdn.net/c/video.js"></script>
+
+
+		<style type="text/css">
+			body,html{background-color:#000;width:100%; height:100%;}
+			video{width:100%;height:100%;position:absolute; top:0; z-index:300;}
+			#unityPlayer{display:none;width:100%;position:absolute; top:0; z-index:200;}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div id="unityPlayer">
+				<!--<div class="missing">
+					<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+						<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+					</a>
+				</div>-->
+			</div>
+			
+		    <video id="ahsVideo" class="video-js vjs-default-skin"  
+		      preload="auto"
+		      data-setup='{"autoplay":true}'>
+		     <source src="dream.mp4" type='video/mp4' />  
+		    </video>
+
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+
+<script type="text/javascript">
+
+videoList=
+		{
+			scenew1:{title:"Dream Sequence",src:"dream.mp4"},
+			scene2:{title:"Wake Up, Fiddle with Flashlight",src:"ahs.mp4"},
+			scene3:{title:"Hallway",unityMessage:"Flashlight"},
+			scene4:{title:"Walk to Door",src:"dream.mp4"},
+			scene5:{title:"KeyHole Sequence",unityMessage:"Keyhole"},
+			scene6:{title:"Door open, Ben Hanging",src:"ben.mp4"},
+			scene7:{title:"Grab Rope",src:"rope.mp4",unityMessage:"Rope"},
+			scene8:{title:"Hold Tight",src:"rope1.mp4"},
+			scene9:{title:"Hold Less Tight",src:"rope2.mp4"},
+			scene10:{title:"Hold Loose ",src:"rope3.mp4"},
+			scene11:{title:"Ben Death ",src:"benDie.mp4"},
+			scene12:{title:"Happy Ghost Family ",src:"happy.mp4"}
+			
+		};
+
+_V_("ahsVideo").ready(function(){
+      var myPlayer = this;
+      var state=0;
+      // EXAMPLE: Start playing the video.
+      myPlayer.play();
+      
+      myPlayer.addEvent("timeupdate", myFunc);
+      function myFunc(){
+      	if (state==0){
+      	//Switch to second video when seek time is 5 seconds. Just to play around.
+	      if(myPlayer.currentTime() >5)
+	      {
+	      //Changes player source to change video.
+	      myPlayer.src("ahs.mp4");
+	      state=1;
+	      myPlayer.play();
+	      	
+	      }
+	    }
+	  }
+
+});
+</script>
+
+
+</script>
+
+</html>
