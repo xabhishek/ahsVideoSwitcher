@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
     <script src="http://vjs.zencdn.net/c/video.js"></script>
 	<script type="text/javascript" src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
@@ -21,15 +20,17 @@
 	</script>
 	
 	<style>
+	body{margin:0;}
 	#unityPlayer{position:absolute; top:0; z-index: 300;}
+	#ahsVideo{position:absolute;top:0;z-index:400;}
 	</style>
 
 </head>
 <body>
     <video id="ahsVideo" class="video-js vjs-default-skin"  
       preload="auto" width="1280" height="720"
-      data-setup='{"autoplay":true}'>
-     <source src="dream.mp4" type='video/mp4' />  
+      data-setup='{"autoplay":false}'>
+     <source type='video/mp4' />  
     </video>
     
 	<div id="unityPlayer">
@@ -43,31 +44,39 @@
 </body>
 
 <script type="text/javascript">
-
 videoList=
 		{
-			scenew1:{title:"Dream Sequence",src:"dream.mp4"},
-			scene2:{title:"Wake Up, Fiddle with Flashlight",src:"ahs.mp4"},
-			scene3:{title:"Hallway",unityMessage:"Flashlight"},
-			scene4:{title:"Walk to Door",src:"dream.mp4"},
-			scene5:{title:"KeyHole Sequence",unityMessage:"Keyhole"},
-			scene6:{title:"Door open, Ben Hanging",src:"ben.mp4"},
-			scene7:{title:"Grab Rope",src:"rope.mp4",unityMessage:"Rope"},
-			scene8:{title:"Hold Tight",src:"rope1.mp4"},
-			scene9:{title:"Hold Less Tight",src:"rope2.mp4"},
-			scene10:{title:"Hold Loose ",src:"rope3.mp4"},
-			scene11:{title:"Ben Death ",src:"benDie.mp4"},
-			scene12:{title:"Happy Ghost Family ",src:"happy.mp4"}
-			
+			initial:{src:"dream.mp4", next:"keyhole"},
+			flashlight:{next:"keyhole"},
+			keyhole:{src:"keyhole.mp4", next:"seeKeyhole"},
+			seeKeyhole:{next:"grab"},
+			grab:{src:"grabRope.mp4", next:"rope1"},
+			rope1:{src:"rope1.mp4", next:"end"},
+			rope2:{src:"rope2.mp4", next:"end"},
+			rope3:{src:"rope3.mp4", next:"end"},
+			end:{src:"end.mp4"}			
 		};
+jQuery.noConflict();
+jQuery(".videojs").hide();
 
 _V_("ahsVideo").ready(function(){
+
       var myPlayer = this;
-      var state=0;
+      var state="initial";
+      stateSrc=eval("videoList."+state+".src");
+      
+      myPlayer.src(stateSrc);
       // EXAMPLE: Start playing the video.
-      myPlayer.play();
+   
+   
+      myPlayer.addEvent("loadedmetadata", start);   
+      function start(){
+	      myPlayer.play();
+	      var video = document.getElementsByTagName("video")[0];
+	      video.currentTime=0;
+      }
       
-      
+/*
       myPlayer.addEvent("timeupdate", myFunc);
       function myFunc(){
       	if (state==0){
@@ -83,6 +92,20 @@ _V_("ahsVideo").ready(function(){
 	      }
 	    }
 	  }
+*/
+	  
+	 myPlayer.addEvent("ended", updateVideo);
+	 
+	 function updateVideo(){
+	 	 state = eval("videoList."+state+".next");
+	 	 if(eval("videoList."+state+".src")) {
+	 	 	stateSrc=eval("videoList."+state+".src");
+	 	 	myPlayer.src(stateSrc);
+	 	 	myPlayer.play();
+	 	 } else 
+	 	 	unityMesage(state);
+	 }
+
 
 });
 </script>
