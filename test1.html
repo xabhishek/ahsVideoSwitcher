@@ -102,8 +102,15 @@ _V_("ahsVideo").ready(function(){
 	 	 	stateSrc=eval("videoList."+state+".src");
 	 	 	myPlayer.src(stateSrc);
 	 	 	myPlayer.play();
-	 	 } else 
-	 	 	unityMesage(state);
+	 	 	jQuery("#ahsVideo").show();
+	 	 	jQuery("video").show();
+
+	 	 } else{ 
+	 	 	unityMessage(state);
+	 	 	jQuery("#ahsVideo").hide();
+	 	 	jQuery("video").hide();
+
+	 	 }
 	 }
 
 
