@@ -46,7 +46,7 @@
 <script type="text/javascript">
 videoList=
 		{
-			initial:{src:"dream.mp4", next:"keyhole"},
+			initial:{src:"dream.mp4", next:"keyhole"},//change keyhole to flashlight when unity is integrated.
 			flashlight:{next:"keyhole"},
 			keyhole:{src:"keyhole.mp4", next:"seeKeyhole"},
 			seeKeyhole:{next:"grab"},
@@ -66,7 +66,6 @@ _V_("ahsVideo").ready(function(){
       stateSrc=eval("videoList."+state+".src");
       
       myPlayer.src(stateSrc);
-      // EXAMPLE: Start playing the video.
    
    
       myPlayer.addEvent("loadedmetadata", start);   
@@ -93,7 +92,7 @@ _V_("ahsVideo").ready(function(){
 	    }
 	  }
  */
-	  
+	 function 
 	 myPlayer.addEvent("ended", updateVideo);
 	 
 	 function updateVideo(){
@@ -106,7 +105,8 @@ _V_("ahsVideo").ready(function(){
 	 	 	jQuery("video").show();
 
 	 	 } else{ 
-	 	 	unityMessage(state);
+	 	 
+	 	 	unityMessage(state);//REPLACE THIS WITH UNITY MESSAGE ('state' sends Flashlight/Keyhole interaction)
 	 	 	jQuery("#ahsVideo").hide();
 	 	 	jQuery("video").hide();
 
